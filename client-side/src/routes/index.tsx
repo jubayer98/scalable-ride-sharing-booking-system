@@ -8,8 +8,12 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import MeetTheTeam from "@/pages/MeetTheTeam";
 import MissionAndVision from "@/pages/MissionAndVision";
+import NotFound from "@/pages/NotFound";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import Profile from "@/pages/Profile";
 import Register from "@/pages/Register";
+import Unauthorized from "@/pages/Unauthorized";
+import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
     {
@@ -27,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 Component: Login,
+            },
+            {
+                path: "profile",
+                Component: withAuth(Profile),
             },
             {
                 path: "features",
@@ -55,6 +63,14 @@ const router = createBrowserRouter([
             {
                 path: "privacy-policy",
                 Component: PrivacyPolicy,
+            },
+            {
+                path: "unauthorized",
+                Component: Unauthorized,
+            },
+            {
+                path: "*",
+                Component: NotFound,
             },
         ],
     },

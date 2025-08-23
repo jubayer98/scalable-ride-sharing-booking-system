@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CityRideLogo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +12,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 // Navigation links
 const navigationLinks = [
@@ -22,7 +26,35 @@ const navigationLinks = [
   { to: "/faq", label: "FAQ" },
 ];
 
+
+type UserData = {
+  name?: string;
+  email?: string;
+  role?: string;
+  [key: string]: any;
+};
+
 export default function Navbar() {
+  const userInfoQuery = useUserInfoQuery(undefined);
+  const [logout] = useLogoutMutation();
+  const userInfo = userInfoQuery.data as { data?: UserData } | undefined;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap();
+      dispatch(authApi.util.resetApiState());
+      toast.success("Logged out successfully!");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Logout failed. Please try again.");
+      console.error("Logout failed:", error);
+    }
+  };
+
+  const isLoggedIn = Boolean(userInfo?.data?.email && userInfo?.data?.role);
+
   return (
     <header className="fixed top-0 left-0 w-full bg-white border-b shadow-sm z-50">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
@@ -69,10 +101,7 @@ export default function Navbar() {
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index} className="w-full">
                       <NavigationMenuLink asChild>
-                        <Link
-                          to={link.to}
-                          className="py-1.5 w-full block"
-                        >
+                        <Link to={link.to} className="py-1.5 w-full block">
                           {link.label}
                         </Link>
                       </NavigationMenuLink>
@@ -109,16 +138,38 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm" className="text-sm">
-            <Link to="/login">Sign In</Link>
-          </Button>
-          <Button
-            asChild
-            size="sm"
-            className="rounded-r-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition"
-          >
-            <Link to="/register">Get Started</Link>
-          </Button>
+          {!isLoggedIn ? (
+            <>
+              <Button asChild variant="ghost" size="sm" className="text-sm">
+                <Link to="/login">Sign In</Link>
+              </Button>
+              <Button
+                asChild
+                size="sm"
+                className="rounded-r-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition"
+              >
+                <Link to="/register">Get Started</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              {/* ✅ Username clickable, links to Profile */}
+              <Link
+                to="/profile"
+                className="text-sm font-medium text-gray-700 hover:text-blue-600 transition"
+              >
+                {userInfo?.data?.name || userInfo?.data?.email}
+              </Link>
+
+              <Button
+                size="sm"
+                onClick={handleLogout}
+                className="cursor-pointer bg-red-500 text-white hover:bg-red-600"
+              >
+                Logout
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>

@@ -48,17 +48,17 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
 // })
 
 // get the user profile information
-// const getMe = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-//     const decodedToken = req.user as JwtPayload;
-//     const result = await userServices.getMe(decodedToken.userId);
+const getMe = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const result = await userServices.getMe(decodedToken.userId);
 
-//     sendResponse(res, {
-//         statusCode: httpStatus.OK,
-//         message: "User profile retrieved successfully",
-//         success: true,
-//         data: result.data
-//     });
-// })
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: "User profile retrieved successfully",
+        success: true,
+        data: result.data
+    });
+})
 
 // get a single user information (role based access)
 // const getSingleUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -98,6 +98,6 @@ export const userControllers = {
     //updateUser,
     //getSingleUser,
     //getAllUsers,
-    //getMe,
+    getMe,
     //generateUserReport
 }

@@ -26,7 +26,7 @@ export default function Login() {
         try {
             await loginUser(data).unwrap();
             toast.success("Login successful!");
-            navigate("/me"); // redirect based on role if needed
+            navigate("/profile"); // redirect based on role if needed
         } catch (err: any) {
             toast.error(err?.data?.message || "Invalid credentials");
         }
@@ -73,7 +73,7 @@ export default function Login() {
                     <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                        className="cursor-pointer w-full bg-blue-600 text-white hover:bg-blue-700"
                     >
                         {isLoading ? "Logging in..." : "Login"}
                         

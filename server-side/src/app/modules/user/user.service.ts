@@ -151,12 +151,12 @@ const createUser = async (payload: Partial<IUser>) => {
 // }
 
 // get the individual profile information (for any role)
-// const getMe = async (userId: string) => {
-//     const user = await userModel.findById(userId).select("-password");
-//     return {
-//         data: user
-//     }
-// };
+const getMe = async (userId: string) => {
+    const user = await userModel.findById(userId).select("-password");
+    return {
+        data: user
+    }
+};
 
 // get the single user information admin only
 // const getSingleUser = async (id: string) => {
@@ -194,6 +194,6 @@ export const userServices = {
     //updateUser,
     //getSingleUser,
     //getAllUsers,
-    //getMe,
+    getMe,
     //generateUserReport
 }
