@@ -5,6 +5,8 @@ import httpStatus from "http-status-codes";
 import bcrypt from "bcrypt";
 import { JwtPayload } from "jsonwebtoken";
 import { EnvVars } from "../../config/env";
+import { driverModel } from "../driver/driver.model";
+import { DriverApprovalStatus } from "../driver/driver.interface";
 
 // create/register new user service
 const createUser = async (payload: Partial<IUser>) => {
@@ -28,114 +30,114 @@ const createUser = async (payload: Partial<IUser>) => {
 }
 
 // update user service
-// const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
-//     const existingUser = await userModel.findById(userId).select("-password");
-//     if (!existingUser) {
-//         throw new AppError(httpStatus.NOT_FOUND, "User not found");
-//     }
+const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
+    const existingUser = await userModel.findById(userId).select("-password");
+    if (!existingUser) {
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    }
 
-//     const previousRole = existingUser.role;
+    const previousRole = existingUser.role;
 
-//     // only admins can update role
-//     if (payload.role && payload.role !== previousRole) {
-//         if (decodedToken.role !== Role.ADMIN) {
-//             throw new AppError(httpStatus.FORBIDDEN, "You are not allowed to update role");
-//         }
+    // only admins can update role
+    if (payload.role && payload.role !== previousRole) {
+        if (decodedToken.role !== Role.ADMIN) {
+            throw new AppError(httpStatus.FORBIDDEN, "You are not allowed to update role");
+        }
 
-//         if (payload.role === Role.DRIVER) {
-//             const existingDriver = await driverModel.findById(userId);
-//             if (!existingDriver) {
-//                 await driverModel.create({
-//                     _id: existingUser._id,
-//                     name: existingUser.name,
-//                     email: existingUser.email,
-//                     phone: existingUser.phone,
-//                     password: existingUser.password,
-//                     role: Role.DRIVER,
-//                     isActive: existingUser.isActive,
-//                     isDeleted: existingUser.isDeleted,
-//                     isVerified: existingUser.isVerified,
-//                     approvalStatus: DriverApprovalStatus.PENDING,
-//                     isOnline: false,
-//                     vehicleInfo: {
-//                         make: "To be updated",
-//                         model: "To be updated",
-//                         year: 1900,
-//                         licensePlate: "To be updated",
-//                     },
-//                     earningsHistory: [],
-//                 });
-//             }
-//         }
+        if (payload.role === Role.DRIVER) {
+            const existingDriver = await driverModel.findById(userId);
+            if (!existingDriver) {
+                await driverModel.create({
+                    _id: existingUser._id,
+                    name: existingUser.name,
+                    email: existingUser.email,
+                    phone: existingUser.phone,
+                    password: existingUser.password,
+                    role: Role.DRIVER,
+                    isActive: existingUser.isActive,
+                    isDeleted: existingUser.isDeleted,
+                    isVerified: existingUser.isVerified,
+                    approvalStatus: DriverApprovalStatus.PENDING,
+                    isOnline: false,
+                    vehicleInfo: {
+                        make: "To be updated",
+                        model: "To be updated",
+                        year: 1900,
+                        licensePlate: "To be updated",
+                    },
+                    earningsHistory: [],
+                });
+            }
+        }
 
-//         if (previousRole === Role.DRIVER && payload.role === Role.RIDER) {
-//             await driverModel.findByIdAndDelete(userId);
-//         }
-//     }
+        if (previousRole === Role.DRIVER && payload.role === Role.USER) {
+            await driverModel.findByIdAndDelete(userId);
+        }
+    }
 
-//     // only admins can update sensitive status fields
-//     const statusFields = ["isActive", "isDeleted", "isVerified"];
-//     const hasStatusFields = statusFields.some((field) => field in payload);
-//     if (hasStatusFields && decodedToken.role !== Role.ADMIN) {
-//         throw new AppError(httpStatus.FORBIDDEN, "You are not allowed to update user status");
-//     }
+    // only admins can update sensitive status fields
+    const statusFields = ["isActive", "isDeleted", "isVerified"];
+    const hasStatusFields = statusFields.some((field) => field in payload);
+    if (hasStatusFields && decodedToken.role !== Role.ADMIN) {
+        throw new AppError(httpStatus.FORBIDDEN, "You are not allowed to update user status");
+    }
 
-//     // hash password if provided
-//     if (payload.password) {
-//         payload.password = await bcrypt.hash(
-//             payload.password,
-//             parseInt(envVariables.BCRYPT_SALT_ROUNDS)
-//         );
-//     }
+    // hash password if provided
+    if (payload.password) {
+        payload.password = await bcrypt.hash(
+            payload.password,
+            parseInt(EnvVars.BCRYPT_SALT_ROUND)
+        );
+    }
 
-//     // check email uniqueness
-//     if (payload.email) {
-//         const existingEmailUser = await userModel.findOne({ email: payload.email });
-//         if (existingEmailUser && existingEmailUser._id.toString() !== userId) {
-//             throw new AppError(httpStatus.BAD_REQUEST, "Email already exists");
-//         }
-//     }
+    // check email uniqueness
+    if (payload.email) {
+        const existingEmailUser = await userModel.findOne({ email: payload.email });
+        if (existingEmailUser && existingEmailUser._id.toString() !== userId) {
+            throw new AppError(httpStatus.BAD_REQUEST, "Email already exists");
+        }
+    }
 
-//     // updates user document
-//     const updatedUser = await userModel.findByIdAndUpdate(userId, payload, {
-//         new: true,
-//         runValidators: true,
-//     });
+    // updates user document
+    const updatedUser = await userModel.findByIdAndUpdate(userId, payload, {
+        new: true,
+        runValidators: true,
+    });
 
-//     // driver-specific approval status logic
-//     if (existingUser.role === Role.DRIVER) {
-//         const driver = await driverModel.findById(userId);
-//         if (driver) {
-//             const effectiveIsActive = payload.isActive ?? existingUser.isActive;
-//             const effectiveIsDeleted = payload.isDeleted ?? existingUser.isDeleted;
-//             const effectiveIsVerified = payload.isVerified ?? existingUser.isVerified;
+    // driver-specific approval status logic
+    if (existingUser.role === Role.DRIVER) {
+        const driver = await driverModel.findById(userId);
+        if (driver) {
+            const effectiveIsActive = payload.isActive ?? existingUser.isActive;
+            const effectiveIsDeleted = payload.isDeleted ?? existingUser.isDeleted;
+            const effectiveIsVerified = payload.isVerified ?? existingUser.isVerified;
 
-//             // suspend
-//             if (
-//                 effectiveIsActive === IsActive.INACTIVE ||
-//                 effectiveIsDeleted === true ||
-//                 effectiveIsVerified === false
-//             ) {
-//                 driver.approvalStatus = DriverApprovalStatus.SUSPENDED;
-//                 await driver.save();
-//             }
+            // suspend
+            if (
+                effectiveIsActive === IsActive.INACTIVE ||
+                effectiveIsDeleted === true ||
+                effectiveIsVerified === false
+            ) {
+                driver.approvalStatus = DriverApprovalStatus.SUSPENDED;
+                await driver.save();
+            }
 
-//             // re-approve
-//             if (payload.isActive === IsActive.ACTIVE) {
-//                 if (effectiveIsDeleted !== false || effectiveIsVerified !== true) {
-//                     throw new AppError(
-//                         httpStatus.BAD_REQUEST,
-//                         "Cannot activate user. To be ACTIVE, user must be VERIFIED and NOT DELETED."
-//                     );
-//                 }
-//                 driver.approvalStatus = DriverApprovalStatus.APPROVED;
-//                 await driver.save();
-//             }
-//         }
-//     }
+            // re-approve
+            if (payload.isActive === IsActive.ACTIVE) {
+                if (effectiveIsDeleted !== false || effectiveIsVerified !== true) {
+                    throw new AppError(
+                        httpStatus.BAD_REQUEST,
+                        "Cannot activate user. To be ACTIVE, user must be VERIFIED and NOT DELETED."
+                    );
+                }
+                driver.approvalStatus = DriverApprovalStatus.APPROVED;
+                await driver.save();
+            }
+        }
+    }
 
-//     return updatedUser;
-// };
+    return updatedUser;
+};
 
 // get all user information admins only
 // const getAllUsers = async () => {
@@ -191,7 +193,7 @@ const getMe = async (userId: string) => {
 
 export const userServices = {
     createUser,
-    //updateUser,
+    updateUser,
     //getSingleUser,
     //getAllUsers,
     getMe,

@@ -4,6 +4,11 @@ export interface ILoginRequest {
     password: string;
 }
 
+export interface IChangePasswordRequest {
+    oldPassword: string;
+    newPassword: string;
+}
+
 export interface IRegisterRequest {
     name: string;
     email: string;
@@ -22,3 +27,4 @@ export type ILoginResponse = IApiResponse<null>;
 export type ILogoutResponse = IApiResponse<null>;
 export type IRegisterResponse = IApiResponse<null>;
 export type IUserInfoResponse = IApiResponse<null>;
+export type IChangePasswordResponse = IApiResponse<null>;

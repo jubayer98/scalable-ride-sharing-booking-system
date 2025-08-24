@@ -19,20 +19,29 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 
 // update the user information (role based access)
-// const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-//     const userId = req.params.id;
-//     const verifiedToken = req.user;
-//     const payload = req.body;
+const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.id;
+    const verifiedToken = req.user;
+    const payload = req.body;
 
-//     const user = await userServices.updateUser(userId, payload, verifiedToken as JwtPayload);
+    if (!userId) {
+        return sendResponse(res, {
+            statusCode: httpStatus.BAD_REQUEST,
+            message: "User ID is required",
+            success: false,
+            data: null,
+        });
+    }
 
-//     sendResponse(res, {
-//         statusCode: httpStatus.OK,
-//         message: "User updated successfully",
-//         success: true,
-//         data: user,
-//     });
-// })
+    const user = await userServices.updateUser(userId, payload, verifiedToken as JwtPayload);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: "User updated successfully",
+        success: true,
+        data: user,
+    });
+})
 
 // get all user information by admin
 // const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -95,7 +104,7 @@ const getMe = catchAsync(async (req: Request, res: Response, next: NextFunction)
 
 export const userControllers = {
     createUser,
-    //updateUser,
+    updateUser,
     //getSingleUser,
     //getAllUsers,
     getMe,

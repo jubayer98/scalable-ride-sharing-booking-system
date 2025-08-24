@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import type { ILoginRequest, ILoginResponse, ILogoutResponse, IRegisterRequest, IRegisterResponse, IUserInfoResponse } from "@/types";
+import type { IChangePasswordRequest, IChangePasswordResponse, ILoginRequest, ILoginResponse, ILogoutResponse, IRegisterRequest, IRegisterResponse, IUserInfoResponse } from "@/types";
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -25,6 +25,14 @@ export const authApi = baseApi.injectEndpoints({
                 data: userInfo,
             }),
         }),
+        changePassword: builder.mutation<IChangePasswordResponse, IChangePasswordRequest>({
+            query: (userInfo) => ({
+                url: "/auth/change-password",
+                method: "POST",
+                data: userInfo,
+                invalidatesTags: ["USER"],
+            }),
+        }),
         userInfo: builder.query<IUserInfoResponse, void>({
             query: () => ({
                 url: "/user/me",
@@ -39,5 +47,6 @@ export const {
     useLoginMutation,
     useRegisterMutation,
     useUserInfoQuery,
-    useLogoutMutation
+    useLogoutMutation,
+    useChangePasswordMutation,
 } = authApi;

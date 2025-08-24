@@ -16,6 +16,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { getDashboardPath } from "@/utils/getDashboardPath";
+import type { IRole } from "@/types";
 
 // Navigation links
 const navigationLinks = [
@@ -54,6 +56,9 @@ export default function Navbar() {
   };
 
   const isLoggedIn = Boolean(userInfo?.data?.email && userInfo?.data?.role);
+
+  // ✅ Compute dashboard path dynamically
+  const dashboardPath = getDashboardPath(userInfo?.data?.role as IRole | undefined);
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white border-b shadow-sm z-50">
@@ -107,6 +112,17 @@ export default function Navbar() {
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
+
+                  {/* ✅ Mobile Dashboard link */}
+                  {isLoggedIn && (
+                    <NavigationMenuItem className="w-full">
+                      <NavigationMenuLink asChild>
+                        <Link to="/dashboard" className="py-1.5 w-full block">
+                          Dashboard
+                        </Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
@@ -131,6 +147,20 @@ export default function Navbar() {
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
+
+                {/* ✅ Show Dashboard only if logged in */}
+                {isLoggedIn && (
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        to={dashboardPath}
+                        className="text-blue-600 hover:text-blue-700 py-1.5 font-medium"
+                      >
+                        Dashboard
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                )}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
