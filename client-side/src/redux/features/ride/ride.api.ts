@@ -13,10 +13,13 @@ export const rideApi = baseApi.injectEndpoints({
                 destinationLocation: { lat: number; lng: number; address?: string };
             }
         >({
-            query: (data) => ({
+            query: ({ pickupLocation, destinationLocation }) => ({
                 url: "/ride/request",
                 method: "POST",
-                data: data,
+                data: {
+                    pickupLocation,
+                    destinationLocation,
+                },
             }),
             invalidatesTags: ["RIDE"],
         }),

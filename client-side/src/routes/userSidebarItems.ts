@@ -1,12 +1,12 @@
 import type { ISidebarItem } from "@/types";
-import { LayoutDashboard, Car, History, User } from "lucide-react";
+import { LayoutDashboard, Car, History, ShieldAlert } from "lucide-react";
 import { lazy } from "react";
 
 // Lazy-loaded rider pages
 const UserDashboard = lazy(() => import("@/pages/user/UserDashboard"));
 const RequestRide = lazy(() => import("@/pages/user/RequestRide"));
 const RideHistory = lazy(() => import("@/pages/user/RideHistory"));
-const UserProfile = lazy(() => import("@/pages/user/UserProfile"));
+const Emergency = lazy(() => import("@/pages/user/Emergency"));
 
 export const userSidebarItems: ISidebarItem[] = [
     {
@@ -28,9 +28,9 @@ export const userSidebarItems: ISidebarItem[] = [
         component: RideHistory,
     },
     {
-        to: "/user/profile",
-        label: "Profile",
-        icon: User,
-        component: UserProfile,
+        to: "/user/emergency",
+        label: "Emergency",
+        icon: ShieldAlert,
+        component: Emergency,
     },
 ];
