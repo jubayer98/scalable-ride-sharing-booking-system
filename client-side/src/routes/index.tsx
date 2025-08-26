@@ -12,7 +12,6 @@ import NotFound from "@/pages/NotFound";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import Profile from "@/pages/Profile";
 import Register from "@/pages/Register";
-import Unauthorized from "@/pages/Unauthorized";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 
 import { withAuth } from "@/utils/withAuth";
@@ -26,6 +25,7 @@ import { adminSidebarItems } from "@/routes/adminSidebarItems";
 import { userSidebarItems } from "@/routes/userSidebarItems";
 import { driverSidebarItems } from "@/routes/driverSidebarItems";
 import { generateRoutes } from "@/utils/generateRoutes";
+import Unauthorized from "@/pages/Unauthorized";
 
 
 const router = createBrowserRouter([
@@ -44,19 +44,14 @@ const router = createBrowserRouter([
             { path: "mission-and-vision", Component: MissionAndVision },
             { path: "faq", Component: FAQ },
             { path: "privacy-policy", Component: PrivacyPolicy },
-            { path: "unauthorized", Component: Unauthorized },
+            { path: "403", Component: Unauthorized }, // ✅ use Forbidden route
             { path: "*", Component: NotFound },
         ],
     },
 
     // ✅ Admin dashboard
     {
-        element: (
-            <ProtectedRoute
-                allowedRoles={[role.admin as IRole]}
-                redirectTo="/unauthorized"
-            />
-        ),
+        element: <ProtectedRoute allowedRoles={[role.admin as IRole]} />, // no redirectTo
         children: [
             {
                 path: "/admin",
@@ -71,12 +66,7 @@ const router = createBrowserRouter([
 
     // ✅ Driver dashboard
     {
-        element: (
-            <ProtectedRoute
-                allowedRoles={[role.driver as IRole]}
-                redirectTo="/unauthorized"
-            />
-        ),
+        element: <ProtectedRoute allowedRoles={[role.driver as IRole]} />,
         children: [
             {
                 path: "/driver",
@@ -91,12 +81,7 @@ const router = createBrowserRouter([
 
     // ✅ User (Rider) dashboard
     {
-        element: (
-            <ProtectedRoute
-                allowedRoles={[role.user as IRole]}
-                redirectTo="/unauthorized"
-            />
-        ),
+        element: <ProtectedRoute allowedRoles={[role.user as IRole]} />,
         children: [
             {
                 path: "/user",

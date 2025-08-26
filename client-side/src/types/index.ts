@@ -21,3 +21,24 @@ export type {
 export type {
     ISidebarItem
 } from "@/types/sideBarItem.type";
+
+export type {
+    IDriver,
+    IVehicleInfo,
+    IGetDriversResponse,
+    IUpdateDriverResponse
+} from "@/types/driver.type";
+
+export type {
+    RideStatus,
+    IRide,
+    ILocation,
+    IRideTimestamps,
+    IRequestRideResponse,
+    IGetRideHistoryResponse,
+    ICancelRideResponse
+} from "@/types/ride.type";
+
+export type {
+    IEarningsRecord
+} from "@/types/driver.type";

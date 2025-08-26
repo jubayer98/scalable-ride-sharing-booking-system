@@ -174,6 +174,13 @@ const updateRideStatus = async (
     return ride;
 };
 
+const getDriverProfile = async (userId: string) => {
+    const user = await driverModel.findById(userId).select("-password");
+    return {
+        data: user
+    }
+};
+
 
 // get all available rides information
 const getAvailableRides = async () => {
@@ -197,11 +204,19 @@ const getEarningsHistory = async (driverId: string) => {
     return driver.earningsHistory || [];
 };
 
+// get all rides assigned to the driver
+const getAllRidesByDriver = async (driverId: string) => {
+    const rides = await rideModel.find({ driver: driverId });
+    return rides;
+};
+
 export const driverServices = {
     updateAvailability,
     respondToRideRequest,
     updateRideStatus,
     getEarningsHistory,
     updateDriverProfile,
-    getAvailableRides
+    getAvailableRides,
+    getDriverProfile,
+    getAllRidesByDriver
 };

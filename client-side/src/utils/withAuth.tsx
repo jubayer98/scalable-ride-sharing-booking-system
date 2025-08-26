@@ -10,14 +10,17 @@ export const withAuth = (Component: ComponentType, requiredRole?: IRole) => {
             isLoading: boolean;
         };
 
+        // 🚫 Not logged in → always redirect to login
         if (!isLoading && !data?.data?.email) {
-            return <Navigate to="/login" />;
+            return <Navigate to="/login" replace />;
         }
 
+        // 🚫 Logged in but wrong role → redirect to Forbidden
         if (requiredRole && !isLoading && requiredRole !== data?.data?.role) {
-            return <Navigate to="/unauthorized" />;
+            return <Navigate to="/403" replace />;
         }
 
+        // ✅ Otherwise → render component
         return <Component />;
     };
 };

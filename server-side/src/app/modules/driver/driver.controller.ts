@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatus from "http-status-codes";
@@ -33,6 +33,18 @@ const updateAvailability = catchAsync(async (req: Request, res: Response) => {
         data: result,
     });
 });
+
+const getDriverProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const result = await driverServices.getDriverProfile(decodedToken.userId);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: "Drive profile retrieved successfully",
+        success: true,
+        data: result.data
+    });
+})
 
 // accept or reject a ride
 const respondToRideRequest = catchAsync(async (req: Request, res: Response) => {
@@ -92,11 +104,26 @@ const getEarningsHistory = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getAllRidesByDriver = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user as JwtPayload;
+
+    const rides = await driverServices.getAllRidesByDriver(user.userId);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: "All rides assigned to the driver retrieved successfully",
+        success: true,
+        data: rides,
+    });
+});
+
 export const driverControllers = {
     updateAvailability,
     respondToRideRequest,
     updateRideStatus,
     getEarningsHistory,
     updateDriverProfile,
-    getAvailableRides
+    getAvailableRides,
+    getDriverProfile,
+    getAllRidesByDriver
 };

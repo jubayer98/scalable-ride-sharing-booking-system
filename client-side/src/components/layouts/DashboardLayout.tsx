@@ -37,8 +37,9 @@ export default function DashboardLayout() {
             dispatch(authApi.util.resetApiState());
             toast.success("Logged out successfully!");
             navigate("/login");
-        } catch {
+        } catch (error) {
             toast.error("Logout failed. Please try again.");
+            console.error("Logout failed:", error);
         }
     };
 

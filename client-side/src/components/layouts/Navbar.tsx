@@ -148,16 +148,29 @@ export default function Navbar() {
                   </NavigationMenuItem>
                 ))}
 
-                {/* ✅ Show Dashboard only if logged in */}
+                {/* Dashboard link (Mobile → same tab, Desktop → new tab) */}
                 {isLoggedIn && (
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Link
-                        to={dashboardPath}
-                        className="text-blue-600 hover:text-blue-700 py-1.5 font-medium"
-                      >
-                        Dashboard
-                      </Link>
+                      <>
+                        {/* Mobile (same tab) */}
+                        <Link
+                          to={dashboardPath}
+                          className="block md:hidden text-blue-600 hover:text-blue-700 py-1.5 font-medium"
+                        >
+                          Dashboard
+                        </Link>
+
+                        {/* Desktop (new tab) */}
+                        <a
+                          href={dashboardPath}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hidden md:block text-blue-600 hover:text-blue-700 py-1.5 font-medium"
+                        >
+                          Dashboard
+                        </a>
+                      </>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 )}

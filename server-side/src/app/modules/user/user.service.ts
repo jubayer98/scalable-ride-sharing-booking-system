@@ -140,17 +140,17 @@ const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken:
 };
 
 // get all user information admins only
-// const getAllUsers = async () => {
-//     const users = await userModel.find().select("-password");;
-//     const totalUsers = await userModel.countDocuments();
+const getAllUsers = async () => {
+    const users = await userModel.find().select("-password");;
+    const totalUsers = await userModel.countDocuments();
 
-//     return {
-//         data: users,
-//         meta: {
-//             total: totalUsers,
-//         }
-//     };
-// }
+    return {
+        data: users,
+        meta: {
+            total: totalUsers,
+        }
+    };
+}
 
 // get the individual profile information (for any role)
 const getMe = async (userId: string) => {
@@ -195,7 +195,7 @@ export const userServices = {
     createUser,
     updateUser,
     //getSingleUser,
-    //getAllUsers,
+    getAllUsers,
     getMe,
     //generateUserReport
 }

@@ -10,7 +10,10 @@ router.patch("/availability", checkAuth(Role.DRIVER), checkDriverApproval, drive
 router.post("/ride/respond", checkAuth(Role.DRIVER), checkDriverApproval, driverControllers.respondToRideRequest);
 router.patch("/ride/status", checkAuth(Role.DRIVER), checkDriverApproval, driverControllers.updateRideStatus);
 router.patch("/profile", checkAuth(Role.DRIVER), driverControllers.updateDriverProfile);
+router.get("/profile", checkAuth(Role.DRIVER), driverControllers.getDriverProfile);
 router.get("/earnings", checkAuth(Role.DRIVER), checkDriverApproval, driverControllers.getEarningsHistory);
 router.get("/available-rides", checkAuth(Role.DRIVER), checkDriverApproval, driverControllers.getAvailableRides);
+router.get("/rides", checkAuth(Role.DRIVER), checkDriverApproval, driverControllers.getAllRidesByDriver);
+
 
 export const driverRoutes = router;

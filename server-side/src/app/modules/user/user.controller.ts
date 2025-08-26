@@ -44,17 +44,17 @@ const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 
 // get all user information by admin
-// const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-//     const result = await userServices.getAllUsers();
+const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const result = await userServices.getAllUsers();
 
-//     sendResponse(res, {
-//         statusCode: httpStatus.OK,
-//         message: "All users retrieved successfully",
-//         success: true,
-//         data: result.data,
-//         meta: result.meta,
-//     });
-// })
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        message: "All users retrieved successfully",
+        success: true,
+        data: result.data,
+        meta: result.meta,
+    });
+})
 
 // get the user profile information
 const getMe = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -106,7 +106,7 @@ export const userControllers = {
     createUser,
     updateUser,
     //getSingleUser,
-    //getAllUsers,
+    getAllUsers,
     getMe,
     //generateUserReport
 }

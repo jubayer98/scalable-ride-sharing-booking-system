@@ -1,5 +1,5 @@
 import type { ISidebarItem } from "@/types";
-import { BarChart3, Users, Car, Settings } from "lucide-react";
+import { BarChart3, Users, Car } from "lucide-react";
 import { lazy } from "react";
 
 // Lazy-loaded admin pages
@@ -7,7 +7,6 @@ const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const ManageUsers = lazy(() => import("@/pages/admin/ManageUsers"));
 const ManageRides = lazy(() => import("@/pages/admin/ManageRides"));
 const Analytics = lazy(() => import("@/pages/admin/Analytics"));
-const AdminSettings = lazy(() => import("@/pages/admin/AdminSettings"));
 
 export const adminSidebarItems: ISidebarItem[] = [
     {
@@ -33,11 +32,5 @@ export const adminSidebarItems: ISidebarItem[] = [
         label: "Analytics",
         icon: BarChart3,
         component: Analytics,
-    },
-    {
-        to: "/admin/settings",
-        label: "Settings",
-        icon: Settings,
-        component: AdminSettings,
     },
 ];
