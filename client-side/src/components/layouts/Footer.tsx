@@ -1,3 +1,5 @@
+
+import { toast } from "sonner";
 import CityRideLogo from "@/assets/icons/Logo";
 
 export default function Footer() {
@@ -100,9 +102,16 @@ export default function Footer() {
                         <p className="mt-4 text-sm text-gray-600">
                             Subscribe to our newsletter for updates and offers.
                         </p>
-                        <form className="mt-4 flex">
+                        <form
+                            className="mt-4 flex"
+                            onSubmit={e => {
+                                e.preventDefault();
+                                toast.success("Thank you for subscribing! You'll stay updated.");
+                            }}
+                        >
                             <input
                                 type="email"
+                                required
                                 placeholder="Enter your email"
                                 className="w-full rounded-l-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             />

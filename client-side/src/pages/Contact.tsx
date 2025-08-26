@@ -1,3 +1,5 @@
+
+import { toast } from "sonner";
 import CityRideLogo from "@/assets/icons/Logo";
 import { Button } from "@/components/ui/button";
 
@@ -58,7 +60,8 @@ export default function Contact() {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
-                        alert("Form submitted! (hook up API here)");
+                        toast.success("Your message has been sent! We'll get back to you soon.");
+                        e.currentTarget.reset();
                     }}
                     className="bg-gray-50 p-8 rounded-xl shadow space-y-6"
                 >

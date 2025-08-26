@@ -26,6 +26,8 @@ import { userSidebarItems } from "@/routes/userSidebarItems";
 import { driverSidebarItems } from "@/routes/driverSidebarItems";
 import { generateRoutes } from "@/utils/generateRoutes";
 import Unauthorized from "@/pages/Unauthorized";
+import Pricing from "@/pages/Pricing";
+import BecomeADriver from "@/pages/BecomeADriver";
 
 
 const router = createBrowserRouter([
@@ -43,7 +45,9 @@ const router = createBrowserRouter([
             { path: "meet-the-team", Component: MeetTheTeam },
             { path: "mission-and-vision", Component: MissionAndVision },
             { path: "faq", Component: FAQ },
+            { path: "pricing", Component: Pricing },
             { path: "privacy-policy", Component: PrivacyPolicy },
+            { path: "become-a-driver", Component: BecomeADriver },
             { path: "403", Component: Unauthorized }, // ✅ use Forbidden route
             { path: "*", Component: NotFound },
         ],

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
@@ -14,12 +15,16 @@ export default function Home() {
                             A modern ride management system built for Riders, Drivers, and Admins. Safe, reliable, and eco-friendly urban mobility at your fingertips.
                         </p>
                         <div className="mt-8 flex gap-4">
-                            <Button size="lg" className="cursor-pointer bg-yellow-400 text-black hover:bg-yellow-500">
-                                Book a Ride
-                            </Button>
-                            <Button size="lg" variant="outline" className="cursor-pointer bg-blue-600 hover:text-white border-white hover:bg-blue-700">
-                                Become a Driver
-                            </Button>
+                            <Link to="/pricing">
+                                <Button size="lg" className="cursor-pointer bg-yellow-400 text-black hover:bg-yellow-500">
+                                    Pricing
+                                </Button>
+                            </Link>
+                            <Link to="/become-a-driver">
+                                <Button size="lg" variant="outline" className="cursor-pointer bg-blue-600 hover:text-white border-white hover:bg-blue-700">
+                                    Become a Driver
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                     <div className="mt-12 lg:mt-0">
@@ -131,16 +136,20 @@ export default function Home() {
                         Join thousands of riders and drivers shaping the future of urban mobility.
                     </p>
                     <div className="mt-8 flex justify-center gap-4">
-                        <Button size="lg" className="bg-yellow-400 cursor-pointer text-black hover:bg-yellow-500">
-                            Get Started
-                        </Button>
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="bg-blue-600 cursor-pointer hover:text-white border-white hover:bg-blue-700"
-                        >
-                            Contact Us
-                        </Button>
+                        <Link to="/pricing">
+                            <Button size="lg" className="bg-yellow-400 cursor-pointer text-black hover:bg-yellow-500">
+                                Pricing
+                            </Button>
+                        </Link>
+                        <Link to="/contact">
+                            <Button
+                                size="lg"
+                                variant="outline"
+                                className="bg-blue-600 cursor-pointer hover:text-white border-white hover:bg-blue-700"
+                            >
+                                Contact Us
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </section>
