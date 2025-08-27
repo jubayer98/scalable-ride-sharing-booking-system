@@ -8,8 +8,8 @@ This application provides tailored experiences for **Riders, Drivers, and Admins
 
 ## 🌐 Live Demo
 
-* **Frontend**: [Deployed Link](#)
-* **Backend API**: [Deployed Link](#)
+* **Frontend**: [Deployed Link](https://ride-share-client-side.vercel.app)
+* **Backend API**: [Deployed Link](https://ride-share-server-side.vercel.app)
 
 ---
 
@@ -43,8 +43,6 @@ This application provides tailored experiences for **Riders, Drivers, and Admins
 ### 🛠 Admin Features
 
 * Manage **users** (block/unblock riders, approve/suspend drivers).
-* Ride oversight with advanced search & filters.
-* Analytics dashboard (ride volume, revenue, driver activity).
 * Profile and account settings.
 
 ### 🎨 UI/UX & Enhancements
@@ -74,23 +72,6 @@ This application provides tailored experiences for **Riders, Drivers, and Admins
 
 ---
 
-## 📂 Project Structure
-
-```bash
-src/
- ├── app/               # Redux store & RTK Query setup
- ├── components/        # Shared UI components
- ├── features/          # Feature-based slices & services
- ├── pages/             # Page-level components (public & private)
- ├── layouts/           # Layouts (Public, Rider, Driver, Admin)
- ├── routes/            # Protected & role-based routes
- ├── hooks/             # Custom React hooks
- ├── utils/             # Helper functions
- └── types/             # TypeScript types & interfaces
-```
-
----
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -101,15 +82,15 @@ src/
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/ride-booking-frontend.git
-cd ride-booking-frontend
+# Clone the repository 
+git clone https://github.com/jubayer98/scalable-ride-sharing-booking-system
+cd client-side
 
 # Install dependencies
 npm install
 
 # Create environment file
-cp .env.example .env
+touch .env
 ```
 
 ### Environment Variables (`.env`)
@@ -137,39 +118,15 @@ npm run build
 
 Use the following test accounts:
 
-* **Admin**: `admin@example.com` / `admin123`
-* **Driver**: `driver@example.com` / `driver123`
-* **Rider**: `rider@example.com` / `rider123`
+* **Admin**: `admin@cityride.com` / `CityRide@123`
+* **Driver**: `driver@example.com` / `CityRide@123`
+* **Rider**: `rider@example.com` / `CityRide@123`
 
 ---
 
 ## 📹 Demo Video
 
-🎥 [Watch Walkthrough](#) (10–15 minutes demo covering all roles and features)
-
----
-
-## 📝 Commit & Contribution Guidelines
-
-* Minimum **10+ meaningful commits** with clear messages.
-* Follow feature-branch workflow:
-
-  * `feature/authentication`
-  * `feature/ride-request`
-* Use conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`).
-
----
-
-## 👨‍💻 Authors
-
-* **Your Name** – [GitHub](https://github.com/your-username)
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
+🎥 [Watch Walkthrough](#) (10–15 minutes demo covering all roles and features, will be added later)
 ---
 
 👉 Would you like me to also draft a **matching README for the Backend repo**, so both repos look professional and consistent?
