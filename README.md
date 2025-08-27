@@ -127,6 +127,3 @@ Use the following test accounts:
 ## 📹 Demo Video
 
 🎥 [Watch Walkthrough](#) (10–15 minutes demo covering all roles and features, will be added later)
----
-
-👉 Would you like me to also draft a **matching README for the Backend repo**, so both repos look professional and consistent?
