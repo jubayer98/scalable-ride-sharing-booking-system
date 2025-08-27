@@ -1,4 +1,4 @@
-# 🚖 Ride Management System – Frontend
+# 🚖 Ride Management System
 
 A **production-grade**, fully responsive, and role-based frontend for a **Ride Booking Platform** (similar to Uber/Pathao) built with **React.js, Redux Toolkit, RTK Query, and TypeScript**.
 
