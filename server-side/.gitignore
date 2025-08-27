@@ -14,3 +14,4 @@ yarn-error.log*
 *.sublime-workspace
 *.log
 *.tsbuildinfo
+.vercel

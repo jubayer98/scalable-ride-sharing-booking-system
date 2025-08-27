@@ -14,13 +14,15 @@ app.use(cookieParser());
 app.use(express.json());
 app.set("trust proxy", 1);
 
+// Initialize Passport (JWT mode only)
+app.use(passport.initialize());
+
 app.use(cors({
-    origin: EnvVars.FRONTEND_URL,
+    origin: ["https://ride-share-client-side.vercel.app"],
     credentials: true
 }));
 
-// Initialize Passport (JWT mode only)
-app.use(passport.initialize());
+
 
 app.use("/api/v1", router);
 

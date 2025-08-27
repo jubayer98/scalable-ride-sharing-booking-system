@@ -1,4 +1,3 @@
-import React from "react";
 import { useGetDriverEarningsHistoryQuery } from "@/redux/features/driver/driver.api";
 import Loading from "@/components/layouts/Loading";
 

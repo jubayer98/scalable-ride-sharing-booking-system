@@ -6,6 +6,9 @@ import FormInput from "@/components/modules/authentication/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
+import React from "react";
+import Loading from "@/components/layouts/Loading";
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 type LoginFormData = {
     email: string;
@@ -16,6 +19,15 @@ export default function Login() {
     const [loginUser, { isLoading }] = useLoginMutation();
     const navigate = useNavigate();
 
+    // Check if already logged in
+    const { data: userInfo, isLoading: checkingAuth } = useUserInfoQuery();
+
+    React.useEffect(() => {
+        if (userInfo?.data) {
+            navigate("/profile");
+        }
+    }, [userInfo, navigate]);
+
     const {
         register,
         handleSubmit,
@@ -24,13 +36,21 @@ export default function Login() {
 
     const onSubmit = async (data: LoginFormData) => {
         try {
-            await loginUser(data).unwrap();
+            const res = await loginUser(data).unwrap();
+            if (res?.data?.accessToken) {
+                localStorage.setItem("accessToken", res.data.accessToken);
+            }
             toast.success("Login successful!");
-            navigate("/profile"); // redirect based on role if needed
+            navigate("/profile");
         } catch (err: any) {
             toast.error(err?.data?.message || "Invalid credentials");
         }
     };
+
+    if (checkingAuth) {
+        return <Loading />;
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8 space-y-6">
@@ -76,7 +96,6 @@ export default function Login() {
                         className="cursor-pointer w-full bg-blue-600 text-white hover:bg-blue-700"
                     >
                         {isLoading ? "Logging in..." : "Login"}
-                        
                     </Button>
                 </form>
 

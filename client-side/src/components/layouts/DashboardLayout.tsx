@@ -15,7 +15,6 @@ import { SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, Sideb
 import SidebarBrand from "./SidebarBrand";
 import SidebarNav from "./SidebarNav";
 import SidebarFooterContent from "./SidebarFooterContent";
-import HeaderBar from "./HeaderBar";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 
 export default function DashboardLayout() {
@@ -63,7 +62,6 @@ export default function DashboardLayout() {
 
                 {/* Main */}
                 <div className="flex-1 flex flex-col bg-white">
-                    <HeaderBar navItems={navItems} />
                     <main className="flex-1 overflow-auto p-6">
                         <Outlet />
                     </main>

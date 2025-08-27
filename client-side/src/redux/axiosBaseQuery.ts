@@ -20,7 +20,13 @@ const axiosBaseQuery =
     (): BaseQueryFn<AxiosBaseQueryArgs, unknown, AxiosBaseQueryError> =>
         async ({ url, method, data, params, headers }) => {
             try {
-                const result = await axiosInstance({ url, method, data, params, headers });
+                // Always merge Authorization header from localStorage
+                const token = typeof window !== 'undefined' ? localStorage.getItem("accessToken") : null;
+                const mergedHeaders = {
+                    ...(headers || {}),
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                };
+                const result = await axiosInstance({ url, method, data, params, headers: mergedHeaders });
                 return { data: result.data };
             } catch (axiosError) {
                 const err = axiosError as AxiosError;

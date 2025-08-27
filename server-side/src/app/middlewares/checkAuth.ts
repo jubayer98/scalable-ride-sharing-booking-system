@@ -9,7 +9,15 @@ import { IsActive } from "../modules/user/user.interface";
 
 export const checkAuth = (...authRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const accessToken = req.cookies.accessToken || req.headers.authorization;
+        let accessToken = req.cookies.accessToken;
+        if (!accessToken && req.headers.authorization) {
+            const authHeader = req.headers.authorization;
+            if (authHeader.startsWith("Bearer ")) {
+                accessToken = authHeader.split(" ")[1];
+            } else {
+                accessToken = authHeader;
+            }
+        }
 
         if (!accessToken) {
             throw new AppError(403, "Access token is missing");

@@ -112,7 +112,20 @@ export default function Profile() {
         }
     };
 
-    if (isLoading) {
+    // Local loading state for checking token
+    const [checkingAuth, setCheckingAuth] = React.useState(true);
+
+    React.useEffect(() => {
+        // Simulate async check for token/cookie in localStorage
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            navigate("/login");
+        } else {
+            setCheckingAuth(false);
+        }
+    }, [navigate]);
+
+    if (isLoading || checkingAuth) {
         return <Loading />;
     }
 

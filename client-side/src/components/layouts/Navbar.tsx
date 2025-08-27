@@ -46,6 +46,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await logout().unwrap();
+      localStorage.removeItem("accessToken");
       dispatch(authApi.util.resetApiState());
       toast.success("Logged out successfully!");
       navigate("/login");

@@ -7,13 +7,20 @@ export const axiosInstance = axios.create({
 })
 
 // Add a request interceptor
-axiosInstance.interceptors.request.use(function (config) {
-    // Do something before request is sent
-    return config;
-}, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-},
+axiosInstance.interceptors.request.use(
+    function (config) {
+        // Attach Authorization header if accessToken exists
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+            config.headers = config.headers || {};
+            config.headers["Authorization"] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    }
 );
 
 // Add a response interceptor

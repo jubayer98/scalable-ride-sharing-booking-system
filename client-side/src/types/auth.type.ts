@@ -23,7 +23,7 @@ export interface IApiResponse<T = null> {
     data: T;
 }
 
-export type ILoginResponse = IApiResponse<null>;
+export type ILoginResponse = IApiResponse<{ accessToken: string }>;
 export type ILogoutResponse = IApiResponse<null>;
 export type IRegisterResponse = IApiResponse<null>;
 export type IUserInfoResponse = IApiResponse<null>;
