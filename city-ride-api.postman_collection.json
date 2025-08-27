@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "ee16f6dd-6a49-451d-a2f6-ab03a519239f",
+		"name": "city-ride-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "45833979"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register-new-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jubayer Alam\",\n    \"email\": \"jubayer@cityride.com\",\n    \"password\": \"CityRide@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "get-me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGE5ZjQ1NmM4ODg0ZTIyZTQ0MzFiNTEiLCJlbWFpbCI6Imp1YmF5ZXJAY2l0eXJpZGUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTU5NjkyNjgsImV4cCI6MTc1NjA1NTY2OH0.e3VoZoU6lxhtpBb9H-iji2RpZU_tGXbEfuacDMM4Wno",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{base_url}}/user/me"
+					},
+					"response": []
+				},
+				{
+					"name": "update-single-user",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGFhMmJmNGU5Y2VmZmEyNWY5ZDJlZDIiLCJlbWFpbCI6Imp1YmF5ZXJAY2l0eXJpZGUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTYwNDQ5NDMsImV4cCI6MTc1NjEzMTM0M30.zZ9Tcgl_8xQ9zPd6mJc3LxOr99uzp7gx4ik29QFBrA0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"driver\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/user/68aa2bf4e9ceffa25f9d2ed2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@cityride.com\",\n    \"password\": \"CityRide@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "logout-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{base_url}}/auth/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGE5ZjQ1NmM4ODg0ZTIyZTQ0MzFiNTEiLCJlbWFpbCI6Imp1YmF5ZXJAY2l0eXJpZGUuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTU5NzMxODMsImV4cCI6MTc1NjA1OTU4M30.0XUv8gmyZ3nCnfv5CIH2F32UTvyacypWMChYFna5HSk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"CityRide@321\",\n    \"newPassword\": \"CityRide@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/change-password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "driver",
+			"item": [
+				{
+					"name": "update-driver-profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGFiM2UyODA0YmEzYmZhMzFjZWQ2ODAiLCJlbWFpbCI6InBhcGx1QGNpdHlyaWRlLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3NTYwNTMxODAsImV4cCI6MTc1NjEzOTU4MH0.z875QKZpVn-3xgtt6c0BaOKnjPSe2J5p1DdgWMHfJA0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"make\": \"BMW\",\n    \"model\": \"Corolla\",\n    \"year\": 2018,\n    \"licensePlate\": \"ABC-1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/driver/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "update-driver-availability",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGFiM2UyODA0YmEzYmZhMzFjZWQ2ODAiLCJlbWFpbCI6InBhcGx1QGNpdHlyaWRlLmNvbSIsInJvbGUiOiJkcml2ZXIiLCJpYXQiOjE3NTYwNTMxODAsImV4cCI6MTc1NjEzOTU4MH0.z875QKZpVn-3xgtt6c0BaOKnjPSe2J5p1DdgWMHfJA0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isOnline\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/driver/availability"
+					},
+					"response": []
+				},
+				{
+					"name": "get-driver-profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/driver/profile"
+					},
+					"response": []
+				},
+				{
+					"name": "get-available-rides",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/driver/available-rides"
+					},
+					"response": []
+				},
+				{
+					"name": "earnings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/driver/earnings"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ride",
+			"item": [
+				{
+					"name": "new-ride-request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pickupLocation\": {\n    \"lat\": 23.793540,\n    \"lng\": 90.404478,\n    \"address\": \"Jatrbari, Dhaka\"\n  },\n  \"destinationLocation\": {\n    \"lat\": 23.806018,\n    \"lng\": 90.365417,\n    \"address\": \"Bashundhara, Dhaka\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/ride/request"
+					},
+					"response": []
+				},
+				{
+					"name": "update-single-ride-status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/driver/ride/status"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-rides-by-assigned-driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/driver/rides"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-rides-by-assigned-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/ride/history"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://ride-share-server-side.vercel.app/api/v1"
+		},
+		{
+			"key": "base_url",
+			"value": "",
+			"disabled": true
+		}
+	]
+}
